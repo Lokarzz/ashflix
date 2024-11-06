@@ -1,4 +1,4 @@
-package com.karlo.ashflix.ui.theme
+package com.karlo.ashflix.ui.main.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -93,10 +93,10 @@ fun AshflixTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+//        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+//            val context = LocalContext.current
+//            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+//        }
 
         darkTheme -> darkScheme
         else -> lightScheme

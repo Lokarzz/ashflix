@@ -1,4 +1,4 @@
-package com.karlo.ashflix.ui.theme
+package com.karlo.ashflix.ui.main.theme
 
 import androidx.compose.ui.graphics.Color
 

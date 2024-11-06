@@ -1,4 +1,4 @@
-package com.karlo.ashflix.ui.theme
+package com.karlo.ashflix.ui.main.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
