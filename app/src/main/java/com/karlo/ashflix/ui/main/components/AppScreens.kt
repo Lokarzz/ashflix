@@ -1,4 +1,4 @@
-package com.karlo.ashflix.ui.main
+package com.karlo.ashflix.ui.main.components
 
 enum class AppScreens {
     Login,
