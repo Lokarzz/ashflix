@@ -85,12 +85,29 @@ private fun AshflixApp(
 
 }
 
+@Composable
+fun BasePreview(content: @Composable () -> Unit) {
+    val layoutDirection = LocalLayoutDirection.current
+    AshflixTheme(darkTheme = true) {
+        Surface(
+            modifier = Modifier
+                .padding(
+                    start = WindowInsets.safeDrawing.asPaddingValues()
+                        .calculateStartPadding(layoutDirection),
+                    end = WindowInsets.safeDrawing.asPaddingValues()
+                        .calculateEndPadding(layoutDirection)
+                )
+        ) {
+            content()
+            AshflixApp(windowSizeClass = WindowWidthSizeClass.Medium)
+        }
+    }
+}
+
 @Preview
 @Composable
 private fun GreetingPreview() {
-    AshflixTheme(darkTheme = true) {
-        Surface {
-            AshflixApp(windowSizeClass = WindowWidthSizeClass.Medium)
-        }
+    BasePreview {
+        AshflixApp(windowSizeClass = WindowWidthSizeClass.Medium)
     }
 }
