@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -41,7 +42,7 @@ fun LoginScreen(
     modifier: Modifier = Modifier, onLoginSuccess: () -> Unit,
     loginViewModel: LoginViewModel = viewModel()
 ) {
-    val uiState = loginViewModel.uiState.collectAsState()
+    val uiState by loginViewModel.uiState.collectAsState()
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -59,29 +60,46 @@ fun LoginScreen(
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
             ) {
                 Logo(modifier = Modifier)
-                AppOutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    label = stringResource(R.string.username),
-                    value = uiState.value.userName,
-                    onValueChange = {
+
+                LoginFields(
+                    userName = uiState.userName,
+                    password = uiState.password,
+                    onUpdateUserName = {
+                        loginViewModel.updateUsername(it)
+                    },
+                    onUpdatePassword = {
                         loginViewModel.updateUsername(it)
                     }
                 )
-                AppOutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    label = stringResource(R.string.password),
-                    visualTransformation = PasswordVisualTransformation(),
-                    value = uiState.value.password,
-                    onValueChange = {
-                        loginViewModel.updatePassword(it)
-                    }
-                )
+
                 LoginSignUp(modifier = Modifier.fillMaxWidth(), onLoginSuccess = onLoginSuccess)
             }
         }
 
 
     }
+}
+
+@Composable
+private fun LoginFields(
+    userName: String,
+    onUpdateUserName: (String) -> Unit,
+    password: String,
+    onUpdatePassword: (String) -> Unit,
+) {
+    AppOutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        label = stringResource(R.string.username),
+        value = userName,
+        onValueChange = onUpdateUserName
+    )
+    AppOutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        label = stringResource(R.string.password),
+        visualTransformation = PasswordVisualTransformation(),
+        value = password,
+        onValueChange = onUpdatePassword
+    )
 }
 
 @Composable
@@ -122,7 +140,7 @@ private fun LoginSignUp(modifier: Modifier = Modifier, onLoginSuccess: () -> Uni
 }
 
 @Composable
-fun ScreenBackground(modifier: Modifier = Modifier) {
+private fun ScreenBackground(modifier: Modifier = Modifier) {
     Image(
         modifier = modifier
             .blur(radius = 10.dp),
