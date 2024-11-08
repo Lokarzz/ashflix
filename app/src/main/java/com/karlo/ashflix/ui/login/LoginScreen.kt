@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
@@ -25,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,14 +40,7 @@ fun LoginScreen(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit) {
         modifier = modifier
             .fillMaxSize()
     ) {
-        Image(
-            modifier = Modifier
-                .fillMaxHeight()
-                .blur(radius = 10.dp),
-            painter = painterResource(R.drawable.ashflix),
-            contentDescription = stringResource(R.string.background_logo),
-            contentScale = ContentScale.Crop,
-        )
+        ScreenBackground(modifier = Modifier.fillMaxSize())
         OutlinedCard(
             modifier = Modifier
                 .align(Alignment.Center)
@@ -58,7 +52,7 @@ fun LoginScreen(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit) {
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
             ) {
-                Logo()
+                Logo(modifier = Modifier)
                 AppOutlinedTextField(
                     modifier = Modifier.fillMaxWidth(), label = stringResource(R.string.username)
                 )
@@ -77,11 +71,23 @@ fun LoginScreen(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit) {
 
 @Composable
 private fun Logo(modifier: Modifier = Modifier) {
-    Text(
+    Row(
         modifier = modifier,
-        text = stringResource(R.string.app_name),
-        style = MaterialTheme.typography.displayLarge
-    )
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
+    ) {
+        Text(
+            modifier = Modifier,
+            text = stringResource(R.string.app_name),
+            style = MaterialTheme.typography.displayLarge,
+            fontFamily = FontFamily.Cursive
+        )
+        Icon(
+            painter = painterResource(R.drawable.rounded_camera_video_24),
+            contentDescription = stringResource(R.string.rounded_camera_video)
+        )
+    }
+
 }
 
 @Composable
@@ -98,6 +104,17 @@ private fun LoginSignUp(modifier: Modifier = Modifier, onLoginSuccess: () -> Uni
             Text(text = stringResource(R.string.sign_up))
         }
     }
+}
+
+@Composable
+fun ScreenBackground(modifier: Modifier = Modifier) {
+    Image(
+        modifier = modifier
+            .blur(radius = 10.dp),
+        painter = painterResource(R.drawable.ashflix),
+        contentDescription = stringResource(R.string.background_logo),
+        contentScale = ContentScale.Crop,
+    )
 }
 
 
