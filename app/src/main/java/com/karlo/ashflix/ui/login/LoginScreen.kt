@@ -18,6 +18,7 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -29,13 +30,18 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.karlo.ashflix.R
 import com.karlo.ashflix.ui.main.BasePreview
 import com.karlo.ashflix.ui.main.components.textfield.AppOutlinedTextField
 
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit) {
+fun LoginScreen(
+    modifier: Modifier = Modifier, onLoginSuccess: () -> Unit,
+    loginViewModel: LoginViewModel = viewModel()
+) {
+    val uiState = loginViewModel.uiState.collectAsState()
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -54,12 +60,21 @@ fun LoginScreen(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit) {
             ) {
                 Logo(modifier = Modifier)
                 AppOutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(), label = stringResource(R.string.username)
+                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(R.string.username),
+                    value = uiState.value.userName,
+                    onValueChange = {
+                        loginViewModel.updateUsername(it)
+                    }
                 )
                 AppOutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     label = stringResource(R.string.password),
-                    visualTransformation = PasswordVisualTransformation()
+                    visualTransformation = PasswordVisualTransformation(),
+                    value = uiState.value.password,
+                    onValueChange = {
+                        loginViewModel.updatePassword(it)
+                    }
                 )
                 LoginSignUp(modifier = Modifier.fillMaxWidth(), onLoginSuccess = onLoginSuccess)
             }

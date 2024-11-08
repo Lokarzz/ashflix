@@ -19,15 +19,14 @@ import com.karlo.ashflix.R
 fun AppOutlinedTextField(
     modifier: Modifier = Modifier,
     label: String,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    value: String,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    onValueChange: (String) -> Unit
 ) {
-    var text by remember { mutableStateOf("") }
     OutlinedTextField(
         modifier = modifier,
-        value = text,
-        onValueChange = {
-            text = it
-        },
+        value = value,
+        onValueChange = onValueChange,
         visualTransformation = visualTransformation,
         label = { Text(label) },
     )
@@ -37,9 +36,14 @@ fun AppOutlinedTextField(
 @Composable
 private fun AppOutlinedTextFieldPreview() {
     Surface {
+        var value by remember { mutableStateOf("") }
         AppOutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
-            label = stringResource(R.string.username)
+            label = stringResource(R.string.username),
+            onValueChange = {
+                value = it
+            },
+            value = value
         )
     }
 }
