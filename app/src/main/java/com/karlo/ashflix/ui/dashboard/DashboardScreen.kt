@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -28,14 +29,20 @@ import com.karlo.ashflix.ui.main.components.movie.MovieCard
 @Composable
 fun DashboardScreen(
     modifier: Modifier = Modifier,
-    dashboardViewModel: DashboardViewModel = viewModel()
+    dashboardViewModel: DashboardViewModel = viewModel(),
+    windowSizeClass: WindowWidthSizeClass
 ) {
     val uiState by dashboardViewModel.uiState.collectAsStateWithLifecycle()
-    DashboardView(modifier = modifier, uiState = uiState)
+    DashboardView(modifier = modifier, uiState = uiState, windowSizeClass= windowSizeClass)
 }
 
 @Composable
-fun DashboardView(modifier: Modifier = Modifier, uiState: DashboardUIState) {
+fun DashboardView(
+    modifier: Modifier = Modifier,
+    uiState: DashboardUIState,
+    windowSizeClass: WindowWidthSizeClass
+) {
+
     Box(modifier = modifier.fillMaxSize()) {
         LazyColumn {
             item {
@@ -78,7 +85,7 @@ fun Movies(modifier: Modifier = Modifier, movies: List<Movie>) {
 private fun DashboardScreenPreview() {
     val uiState = DashboardUIState.preview()
     BasePreview {
-        DashboardView(uiState = uiState)
+        DashboardView(uiState = uiState, windowSizeClass = WindowWidthSizeClass.Compact)
     }
 }
 
@@ -87,7 +94,7 @@ private fun DashboardScreenPreview() {
 private fun DashboardScreenPreviewTab() {
     val uiState = DashboardUIState.preview()
     BasePreview {
-        DashboardView(uiState = uiState)
+        DashboardView(uiState = uiState, windowSizeClass = WindowWidthSizeClass.Expanded)
     }
 }
 
@@ -96,6 +103,6 @@ private fun DashboardScreenPreviewTab() {
 private fun DashboardScreenPreviewFold() {
     val uiState = DashboardUIState.preview()
     BasePreview {
-        DashboardView(uiState = uiState)
+        DashboardView(uiState = uiState, windowSizeClass = WindowWidthSizeClass.Expanded)
     }
 }

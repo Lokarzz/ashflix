@@ -1,6 +1,5 @@
 package com.karlo.ashflix.ui.login
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -17,19 +17,18 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.karlo.ashflix.R
@@ -40,16 +39,27 @@ import com.karlo.ashflix.ui.main.components.textfield.AppOutlinedTextField
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier, onLoginSuccess: () -> Unit,
-    loginViewModel: LoginViewModel = viewModel()
+    loginViewModel: LoginViewModel = viewModel(),
+    windowSizeClass: WindowWidthSizeClass
 ) {
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
+    val modifierLoginCard = when (windowSizeClass) {
+        WindowWidthSizeClass.Expanded -> {
+            Modifier.width(dimensionResource(R.dimen.expanded_login_card_width))
+        }
+
+        else -> {
+            Modifier.fillMaxWidth()
+        }
+
+    }
     Box(
         modifier = modifier
             .fillMaxSize()
     ) {
         ScreenBackground(modifier = Modifier.fillMaxSize())
         OutlinedCard(
-            modifier = Modifier
+            modifier = modifierLoginCard
                 .align(Alignment.Center)
                 .padding(horizontal = dimensionResource(R.dimen.padding_medium)),
         ) {
@@ -139,21 +149,33 @@ private fun LoginSignUp(modifier: Modifier = Modifier, onLoginSuccess: () -> Uni
 
 @Composable
 private fun ScreenBackground(modifier: Modifier = Modifier) {
-    Image(
-        modifier = modifier
-            .blur(radius = 10.dp),
-        painter = painterResource(R.drawable.ashflix),
-        contentDescription = stringResource(R.string.background_logo),
-        contentScale = ContentScale.Crop,
-    )
+    Box(modifier = modifier) {
+
+    }
 }
 
 
 @Preview
 @Composable
 private fun DarkPreview() {
-    BasePreview(darkTheme = true) {
-        LoginScreen(onLoginSuccess = {})
+    BasePreview {
+        LoginScreen(onLoginSuccess = {}, windowSizeClass = WindowWidthSizeClass.Compact)
+    }
+}
+
+@Preview(device = Devices.TABLET)
+@Composable
+private fun TabletPreview() {
+    BasePreview {
+        LoginScreen(onLoginSuccess = {}, windowSizeClass = WindowWidthSizeClass.Expanded)
+    }
+}
+
+@Preview(device = Devices.FOLDABLE)
+@Composable
+private fun FoldablePreview() {
+    BasePreview {
+        LoginScreen(onLoginSuccess = {}, windowSizeClass = WindowWidthSizeClass.Expanded)
     }
 }
 
@@ -161,6 +183,6 @@ private fun DarkPreview() {
 @Composable
 private fun LightPreview() {
     BasePreview(darkTheme = false) {
-        LoginScreen(onLoginSuccess = {})
+        LoginScreen(onLoginSuccess = {}, windowSizeClass = WindowWidthSizeClass.Compact)
     }
 }

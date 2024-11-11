@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -49,7 +50,6 @@ class MainActivity : ComponentActivity() {
                     val windowSize = calculateWindowSizeClass(this)
                     AshflixApp(windowSizeClass = windowSize.widthSizeClass)
                 }
-
             }
         }
     }
@@ -61,9 +61,7 @@ private fun AshflixApp(
     windowSizeClass: WindowWidthSizeClass,
     navController: NavHostController = rememberNavController()
 ) {
-    // Get current back stack entry
     val backStackEntry by navController.currentBackStackEntryAsState()
-    // Get the name of the current screen
     val currentScreen = AppScreens.valueOf(
         backStackEntry?.destination?.route ?: AppScreens.Login.name
     )
@@ -75,11 +73,12 @@ private fun AshflixApp(
             LoginScreen(
                 onLoginSuccess = {
                     navController.navigate(route = AppScreens.Dashboard.name)
-                }
+                },
+                windowSizeClass = windowSizeClass
             )
         }
         composable(route = AppScreens.Dashboard.name) {
-            DashboardScreen(modifier)
+            DashboardScreen(windowSizeClass = windowSizeClass)
         }
     }
 
@@ -109,8 +108,16 @@ fun BasePreview(
 
 @Preview
 @Composable
-private fun GreetingPreview() {
+private fun MediumPreview() {
     BasePreview {
         AshflixApp(windowSizeClass = WindowWidthSizeClass.Medium)
+    }
+}
+
+@Preview(device = Devices.TABLET)
+@Composable
+private fun ExpandedPreview() {
+    BasePreview {
+        AshflixApp(windowSizeClass = WindowWidthSizeClass.Expanded)
     }
 }
