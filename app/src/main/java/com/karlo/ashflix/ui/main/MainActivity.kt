@@ -15,7 +15,6 @@ import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSiz
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.Devices
@@ -23,13 +22,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.karlo.ashflix.ui.view.dashboard.DashboardScreen
-import com.karlo.ashflix.ui.view.login.LoginScreen
 import com.karlo.ashflix.ui.components.AppScreens
 import com.karlo.ashflix.ui.main.theme.AshflixTheme
+import com.karlo.ashflix.ui.view.dashboard.DashboardScreen
+import com.karlo.ashflix.ui.view.login.LoginScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,11 +61,12 @@ private fun AshflixApp(
     windowSizeClass: WindowWidthSizeClass,
     navController: NavHostController = rememberNavController()
 ) {
-    val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentScreen = AppScreens.valueOf(
-        backStackEntry?.destination?.route ?: AppScreens.Login.name
-    )
+//    val backStackEntry by navController.currentBackStackEntryAsState()
+//    val currentScreen = AppScreens.valueOf(
+//        backStackEntry?.destination?.route ?: AppScreens.Login.name
+//    )
     NavHost(
+        modifier = modifier,
         navController = navController,
         startDestination = AppScreens.Login.name
     ) {

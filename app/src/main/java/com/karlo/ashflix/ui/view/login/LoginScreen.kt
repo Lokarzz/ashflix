@@ -78,7 +78,7 @@ fun LoginScreen(
                         loginViewModel.updateUsername(it)
                     },
                     onUpdatePassword = {
-                        loginViewModel.updateUsername(it)
+                        loginViewModel.updatePassword(it)
                     }
                 )
 
