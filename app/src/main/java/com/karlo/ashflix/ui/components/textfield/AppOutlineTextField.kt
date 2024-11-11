@@ -1,4 +1,4 @@
-package com.karlo.ashflix.ui.main.components.textfield
+package com.karlo.ashflix.ui.components.textfield
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.OutlinedTextField

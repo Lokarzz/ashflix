@@ -1,4 +1,4 @@
-package com.karlo.ashflix.ui.dashboard
+package com.karlo.ashflix.ui.view.dashboard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,7 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.karlo.ashflix.R
 import com.karlo.ashflix.model.data.movie.Movie
 import com.karlo.ashflix.ui.main.BasePreview
-import com.karlo.ashflix.ui.main.components.movie.MovieCard
+import com.karlo.ashflix.ui.components.movie.MovieCard
 
 @Composable
 fun DashboardScreen(

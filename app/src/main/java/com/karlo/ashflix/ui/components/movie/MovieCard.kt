@@ -1,4 +1,4 @@
-package com.karlo.ashflix.ui.main.components.movie
+package com.karlo.ashflix.ui.components.movie
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box

@@ -25,9 +25,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.karlo.ashflix.ui.dashboard.DashboardScreen
-import com.karlo.ashflix.ui.login.LoginScreen
-import com.karlo.ashflix.ui.main.components.AppScreens
+import com.karlo.ashflix.ui.view.dashboard.DashboardScreen
+import com.karlo.ashflix.ui.view.login.LoginScreen
+import com.karlo.ashflix.ui.components.AppScreens
 import com.karlo.ashflix.ui.main.theme.AshflixTheme
 
 class MainActivity : ComponentActivity() {

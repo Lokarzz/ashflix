@@ -1,4 +1,4 @@
-package com.karlo.ashflix.ui.login
+package com.karlo.ashflix.ui.view.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,7 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.karlo.ashflix.R
 import com.karlo.ashflix.ui.main.BasePreview
-import com.karlo.ashflix.ui.main.components.textfield.AppOutlinedTextField
+import com.karlo.ashflix.ui.components.textfield.AppOutlinedTextField
 
 
 @Composable

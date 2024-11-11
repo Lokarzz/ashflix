@@ -1,4 +1,4 @@
-package com.karlo.ashflix.ui.login
+package com.karlo.ashflix.ui.view.login
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.karlo.ashflix.ui.dashboard
+package com.karlo.ashflix.ui.view.dashboard
 
 import com.karlo.ashflix.model.data.movie.Movie
 
