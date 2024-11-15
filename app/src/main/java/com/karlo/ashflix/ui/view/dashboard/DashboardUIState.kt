@@ -1,6 +1,6 @@
 package com.karlo.ashflix.ui.view.dashboard
 
-import com.karlo.ashflix.model.data.movie.Movie
+import com.karlo.ashflix.model.data.main.movie.Movie
 
 data class DashboardUIState(
     var trendingMovies: List<Movie> = emptyList()

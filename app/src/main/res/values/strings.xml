@@ -7,4 +7,5 @@
     <string name="background_logo">Background logo</string>
     <string name="rounded_camera_video">Rounded camera video</string>
     <string name="trending_now">Trending now</string>
+    <string name="play_video">Play video</string>
 </resources>

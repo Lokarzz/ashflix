@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.karlo.ashflix.R
-import com.karlo.ashflix.model.data.movie.Movie
+import com.karlo.ashflix.model.data.main.movie.Movie
 import com.karlo.ashflix.ui.main.BasePreview
 import com.karlo.ashflix.ui.components.movie.MovieCard
 
