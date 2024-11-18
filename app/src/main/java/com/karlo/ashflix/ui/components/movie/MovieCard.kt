@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.karlo.ashflix.R
-import com.karlo.ashflix.model.data.movie.Movie
+import com.karlo.ashflix.model.data.main.movie.Movie
 import com.karlo.ashflix.ui.main.BasePreview
 
 

@@ -29,17 +29,19 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.karlo.ashflix.R
-import com.karlo.ashflix.ui.main.BasePreview
 import com.karlo.ashflix.ui.components.textfield.AppOutlinedTextField
+import com.karlo.ashflix.ui.main.BasePreview
 
 
 @Composable
 fun LoginScreen(
-    modifier: Modifier = Modifier, onLoginSuccess: () -> Unit,
-    loginViewModel: LoginViewModel = viewModel(),
+    modifier: Modifier = Modifier,
+    onLoginSuccess: () -> Unit,
+    loginViewModel: LoginViewModel = hiltViewModel(),
     windowSizeClass: WindowWidthSizeClass
 ) {
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
@@ -54,8 +56,7 @@ fun LoginScreen(
 
     }
     Box(
-        modifier = modifier
-            .fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         ScreenBackground(modifier = Modifier.fillMaxSize())
         OutlinedCard(
@@ -71,18 +72,16 @@ fun LoginScreen(
             ) {
                 Logo(modifier = Modifier)
 
-                LoginFields(
-                    userName = uiState.userName,
+                LoginFields(userName = uiState.userName,
                     password = uiState.password,
                     onUpdateUserName = {
                         loginViewModel.updateUsername(it)
                     },
                     onUpdatePassword = {
                         loginViewModel.updatePassword(it)
-                    }
-                )
+                    })
 
-                LoginSignUp(modifier = Modifier.fillMaxWidth(), onLoginSuccess = onLoginSuccess)
+                LoginSignUp(modifier = Modifier.fillMaxWidth(), onLoginSuccess = { loginViewModel.login() })
             }
         }
     }
