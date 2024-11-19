@@ -1,7 +1,7 @@
 package com.karlo.ashflix.model.di.network
 
 import com.karlo.ashflix.model.network.ashflix.service.AshflixService
-import com.karlo.ashflix.model.repository.auth.AuthRepository
+import com.karlo.ashflix.model.repository.main.auth.AuthRepository
 import com.karlo.ashflix.model.repository.remote.ashflix.auth.AshflixAuthRepository
 import dagger.Module
 import dagger.Provides

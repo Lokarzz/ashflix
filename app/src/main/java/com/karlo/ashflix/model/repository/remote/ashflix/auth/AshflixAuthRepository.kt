@@ -3,7 +3,7 @@ package com.karlo.ashflix.model.repository.remote.ashflix.auth
 import com.karlo.ashflix.model.data.ashflix.login.LoginRequest
 import com.karlo.ashflix.model.data.ashflix.login.LoginResponse
 import com.karlo.ashflix.model.network.ashflix.service.AshflixService
-import com.karlo.ashflix.model.repository.auth.AuthRepository
+import com.karlo.ashflix.model.repository.main.auth.AuthRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

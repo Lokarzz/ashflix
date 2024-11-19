@@ -23,10 +23,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.karlo.ashflix.model.repository.fake.auth.FakeAuthRepository
 import com.karlo.ashflix.ui.components.AppScreens
 import com.karlo.ashflix.ui.main.theme.AshflixTheme
 import com.karlo.ashflix.ui.view.dashboard.DashboardScreen
 import com.karlo.ashflix.ui.view.login.LoginScreen
+import com.karlo.ashflix.ui.view.login.LoginScreenPreview
+import com.karlo.ashflix.ui.view.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -82,9 +85,33 @@ private fun AshflixApp(
             DashboardScreen(windowSizeClass = windowSizeClass)
         }
     }
-
-
 }
+
+@Composable
+fun AshflixAppPreview(
+    modifier: Modifier = Modifier,
+    windowSizeClass: WindowWidthSizeClass,
+    navController: NavHostController = rememberNavController()
+) {
+    NavHost(
+        modifier = modifier,
+        navController = rememberNavController(),
+        startDestination = AppScreens.Login.name
+    ) {
+        composable(route = AppScreens.Login.name) {
+            LoginScreenPreview(
+                onLoginSuccess = {
+                    navController.navigate(route = AppScreens.Dashboard.name)
+                },
+                windowSizeClass = windowSizeClass,
+            )
+        }
+        composable(route = AppScreens.Dashboard.name) {
+            DashboardScreen(windowSizeClass = windowSizeClass)
+        }
+    }
+}
+
 
 @Composable
 fun BasePreview(
@@ -109,16 +136,21 @@ fun BasePreview(
 
 @Preview
 @Composable
-private fun MediumPreview() {
+private fun MediumPreview(
+
+) {
     BasePreview {
-        AshflixApp(windowSizeClass = WindowWidthSizeClass.Medium)
+        AshflixAppPreview(
+            windowSizeClass = WindowWidthSizeClass.Medium
+        )
     }
 }
+
 
 @Preview(device = Devices.TABLET)
 @Composable
 private fun ExpandedPreview() {
     BasePreview {
-        AshflixApp(windowSizeClass = WindowWidthSizeClass.Expanded)
+        AshflixAppPreview(windowSizeClass = WindowWidthSizeClass.Expanded)
     }
 }

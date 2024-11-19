@@ -1,4 +1,4 @@
-package com.karlo.ashflix.model.repository.auth
+package com.karlo.ashflix.model.repository.main.auth
 
 import com.karlo.ashflix.model.data.ashflix.login.LoginRequest
 import com.karlo.ashflix.model.data.ashflix.login.LoginResponse

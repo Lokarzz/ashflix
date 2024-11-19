@@ -3,7 +3,7 @@ package com.karlo.ashflix.ui.view.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.karlo.ashflix.model.data.ashflix.login.LoginRequest
-import com.karlo.ashflix.model.repository.auth.AuthRepository
+import com.karlo.ashflix.model.repository.main.auth.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

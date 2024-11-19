@@ -31,8 +31,8 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.karlo.ashflix.R
+import com.karlo.ashflix.model.repository.fake.auth.FakeAuthRepository
 import com.karlo.ashflix.ui.components.textfield.AppOutlinedTextField
 import com.karlo.ashflix.ui.main.BasePreview
 
@@ -81,7 +81,9 @@ fun LoginScreen(
                         loginViewModel.updatePassword(it)
                     })
 
-                LoginSignUp(modifier = Modifier.fillMaxWidth(), onLoginSuccess = { loginViewModel.login() })
+                LoginSignUp(
+                    modifier = Modifier.fillMaxWidth(),
+                    onLoginSuccess = { loginViewModel.login() })
             }
         }
     }
@@ -153,12 +155,28 @@ private fun ScreenBackground(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun LoginScreenPreview(
+    modifier: Modifier = Modifier,
+    windowSizeClass: WindowWidthSizeClass,
+    onLoginSuccess: () -> Unit = {}
+) {
+    LoginScreen(
+        modifier = modifier,
+        onLoginSuccess = onLoginSuccess,
+        windowSizeClass = windowSizeClass,
+        loginViewModel = LoginViewModel(FakeAuthRepository())
+    )
+}
+
 
 @Preview
 @Composable
 private fun DarkPreview() {
     BasePreview {
-        LoginScreen(onLoginSuccess = {}, windowSizeClass = WindowWidthSizeClass.Compact)
+        LoginScreenPreview(
+            windowSizeClass = WindowWidthSizeClass.Compact,
+        )
     }
 }
 
@@ -166,7 +184,10 @@ private fun DarkPreview() {
 @Composable
 private fun TabletPreview() {
     BasePreview {
-        LoginScreen(onLoginSuccess = {}, windowSizeClass = WindowWidthSizeClass.Expanded)
+        LoginScreenPreview(
+            windowSizeClass = WindowWidthSizeClass.Expanded,
+        )
+
     }
 }
 
@@ -174,7 +195,9 @@ private fun TabletPreview() {
 @Composable
 private fun FoldablePreview() {
     BasePreview {
-        LoginScreen(onLoginSuccess = {}, windowSizeClass = WindowWidthSizeClass.Expanded)
+        LoginScreenPreview(
+            windowSizeClass = WindowWidthSizeClass.Expanded,
+        )
     }
 }
 
@@ -182,6 +205,8 @@ private fun FoldablePreview() {
 @Composable
 private fun LightPreview() {
     BasePreview(darkTheme = false) {
-        LoginScreen(onLoginSuccess = {}, windowSizeClass = WindowWidthSizeClass.Compact)
+        LoginScreenPreview(
+            windowSizeClass = WindowWidthSizeClass.Compact,
+        )
     }
 }
