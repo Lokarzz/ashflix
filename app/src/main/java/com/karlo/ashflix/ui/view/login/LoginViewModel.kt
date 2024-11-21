@@ -2,12 +2,16 @@ package com.karlo.ashflix.ui.view.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.karlo.ashflix.model.data.ashflix.login.LoginRequest
 import com.karlo.ashflix.model.repository.main.auth.AuthRepository
+import com.karlo.ashflix.ui.main.uiState.ApiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,27 +24,51 @@ class LoginViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     fun updateUsername(username: String) {
-        _uiState.value = _uiState.value.copy(userName = username)
+        _uiState.update {
+            it.copy(
+                userName = username
+            )
+        }
     }
 
     fun updatePassword(password: String) {
-        _uiState.value = _uiState.value.copy(password = password)
+        _uiState.update {
+            it.copy(
+                password = password
+            )
+        }
     }
 
     fun login() {
         viewModelScope.launch {
             authRepository.login(
                 LoginRequest(
-                    _uiState.value.userName,
-                    _uiState.value.password
+                    _uiState.value.userName, _uiState.value.password
                 )
             ).catch {
-                println(it)
+                _uiState.update { state ->
+                    state.copy(
+                        loginApiState = ApiState.Error(message = it.message, code = 0)
+                    )
+                }
+            }.onStart {
+                _uiState.update { state ->
+                    state.copy(
+                        loginApiState = ApiState.Loading()
+                    )
+                }
             }.collect {
-                println(it)
+                _uiState.update { state ->
+                    state.copy(
+                        loginApiState = ApiState.Success(it)
+                    )
+                }
             }
         }
     }
 
+    companion object {
+        private const val TAG = "LoginViewModel"
 
+    }
 }
