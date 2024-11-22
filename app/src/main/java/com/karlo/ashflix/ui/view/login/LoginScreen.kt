@@ -35,6 +35,7 @@ import com.karlo.ashflix.R
 import com.karlo.ashflix.model.repository.fake.auth.FakeAuthRepository
 import com.karlo.ashflix.ui.components.textfield.AppOutlinedTextField
 import com.karlo.ashflix.ui.main.BasePreview
+import com.karlo.ashflix.utils.api.error.DefaultErrorHandler
 
 
 @Composable
@@ -165,7 +166,7 @@ fun LoginScreenPreview(
         modifier = modifier,
         onLoginSuccess = onLoginSuccess,
         windowSizeClass = windowSizeClass,
-        loginViewModel = LoginViewModel(FakeAuthRepository())
+        loginViewModel = LoginViewModel(FakeAuthRepository(), DefaultErrorHandler())
     )
 }
 

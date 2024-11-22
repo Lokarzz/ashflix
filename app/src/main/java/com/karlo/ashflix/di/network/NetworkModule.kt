@@ -1,4 +1,4 @@
-package com.karlo.ashflix.model.di.network
+package com.karlo.ashflix.di.network
 
 import com.karlo.ashflix.model.network.ashflix.service.AshflixService
 import com.karlo.ashflix.model.repository.main.auth.AuthRepository

@@ -2,10 +2,10 @@ package com.karlo.ashflix.ui.view.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import com.karlo.ashflix.model.data.ashflix.login.LoginRequest
 import com.karlo.ashflix.model.repository.main.auth.AuthRepository
 import com.karlo.ashflix.ui.main.uiState.ApiState
+import com.karlo.ashflix.utils.api.error.ErrorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val errorHandler: ErrorHandler
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -48,7 +49,7 @@ class LoginViewModel @Inject constructor(
             ).catch {
                 _uiState.update { state ->
                     state.copy(
-                        loginApiState = ApiState.Error(message = it.message, code = 0)
+                        loginApiState = ApiState.Error(errorHandler.process(it))
                     )
                 }
             }.onStart {
