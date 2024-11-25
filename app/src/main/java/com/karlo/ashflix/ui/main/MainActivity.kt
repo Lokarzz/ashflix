@@ -23,13 +23,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.karlo.ashflix.model.repository.fake.auth.FakeAuthRepository
 import com.karlo.ashflix.ui.components.AppScreens
 import com.karlo.ashflix.ui.main.theme.AshflixTheme
 import com.karlo.ashflix.ui.view.dashboard.DashboardScreen
 import com.karlo.ashflix.ui.view.login.LoginScreen
 import com.karlo.ashflix.ui.view.login.LoginScreenPreview
-import com.karlo.ashflix.ui.view.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -95,7 +93,7 @@ fun AshflixAppPreview(
 ) {
     NavHost(
         modifier = modifier,
-        navController = rememberNavController(),
+        navController = navController,
         startDestination = AppScreens.Login.name
     ) {
         composable(route = AppScreens.Login.name) {

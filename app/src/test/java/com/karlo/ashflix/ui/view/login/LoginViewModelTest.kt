@@ -7,7 +7,6 @@ import com.karlo.ashflix.model.data.main.api.error.ErrorInfo
 import com.karlo.ashflix.model.repository.remote.ashflix.auth.AshflixAuthRepository
 import com.karlo.ashflix.network.ashflix.service.FakeAshflixService
 import com.karlo.ashflix.ui.main.uiState.ApiState
-import com.karlo.ashflix.utils.api.error.DefaultErrorHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -28,10 +27,12 @@ class LoginViewModelTest {
     fun setUp() {
         Dispatchers.setMain(UnconfinedTestDispatcher())
         ashflixService = FakeAshflixService()
+
         loginViewModel =
             LoginViewModel(
-                authRepository = AshflixAuthRepository(ashflixService),
-                errorHandler = DefaultErrorHandler()
+                FakeLoginProvider(
+                    authRepository = AshflixAuthRepository(ashflixService)
+                )
             )
     }
 
@@ -94,7 +95,12 @@ class LoginViewModelTest {
         loginViewModel.login()
         assert(uiState.value.loginApiState is ApiState.Error)
         val errorState = uiState.value.loginApiState as ApiState.Error
-        assert(errorState.errorInfo == ErrorInfo(message = "User name must not be empty", code = 400))
+        assert(
+            errorState.errorInfo == ErrorInfo(
+                message = "User name must not be empty",
+                code = 400
+            )
+        )
 
     }
 

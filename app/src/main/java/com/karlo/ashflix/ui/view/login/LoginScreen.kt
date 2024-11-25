@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,10 +33,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.karlo.ashflix.R
-import com.karlo.ashflix.model.repository.fake.auth.FakeAuthRepository
 import com.karlo.ashflix.ui.components.textfield.AppOutlinedTextField
 import com.karlo.ashflix.ui.main.BasePreview
-import com.karlo.ashflix.utils.api.error.DefaultErrorHandler
+import com.karlo.ashflix.ui.main.uiState.ApiState
 
 
 @Composable
@@ -47,14 +47,13 @@ fun LoginScreen(
 ) {
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
     val modifierLoginCard = when (windowSizeClass) {
-        WindowWidthSizeClass.Expanded -> {
-            Modifier.width(dimensionResource(R.dimen.expanded_login_card_width))
+        WindowWidthSizeClass.Expanded -> Modifier.width(dimensionResource(R.dimen.expanded_login_card_width))
+        else -> Modifier.fillMaxWidth()
+    }
+    LaunchedEffect(uiState.loginApiState) {
+        if (uiState.loginApiState is ApiState.Success) {
+            onLoginSuccess()
         }
-
-        else -> {
-            Modifier.fillMaxWidth()
-        }
-
     }
     Box(
         modifier = modifier.fillMaxSize()
@@ -84,7 +83,8 @@ fun LoginScreen(
 
                 LoginSignUp(
                     modifier = Modifier.fillMaxWidth(),
-                    onLoginSuccess = { loginViewModel.login() })
+                    onLogin = { loginViewModel.login() }
+                )
             }
         }
     }
@@ -134,16 +134,16 @@ private fun Logo(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun LoginSignUp(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit) {
+private fun LoginSignUp(modifier: Modifier = Modifier, onLogin: () -> Unit) {
     Row(
         modifier = modifier.height(IntrinsicSize.Min),
         horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
     ) {
-        Button(modifier = Modifier.weight(1f), onClick = onLoginSuccess) {
+        Button(modifier = Modifier.weight(1f), onClick = onLogin) {
             Text(text = stringResource(R.string.login))
         }
         VerticalDivider()
-        OutlinedButton(modifier = Modifier.weight(1f), enabled = false, onClick = onLoginSuccess) {
+        OutlinedButton(modifier = Modifier.weight(1f), enabled = false, onClick = onLogin) {
             Text(text = stringResource(R.string.sign_up))
         }
     }
@@ -166,7 +166,7 @@ fun LoginScreenPreview(
         modifier = modifier,
         onLoginSuccess = onLoginSuccess,
         windowSizeClass = windowSizeClass,
-        loginViewModel = LoginViewModel(FakeAuthRepository(), DefaultErrorHandler())
+        loginViewModel = LoginViewModel(FakeLoginProvider())
     )
 }
 
