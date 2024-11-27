@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -38,18 +39,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AshflixTheme(darkTheme = true) {
-                val layoutDirection = LocalLayoutDirection.current
                 Surface(
                     modifier = Modifier
-                        .padding(
-                            start = WindowInsets.safeDrawing.asPaddingValues()
-                                .calculateStartPadding(layoutDirection),
-                            end = WindowInsets.safeDrawing.asPaddingValues()
-                                .calculateEndPadding(layoutDirection)
-                        )
                 ) {
                     val windowSize = calculateWindowSizeClass(this)
-                    AshflixApp(windowSizeClass = windowSize.widthSizeClass)
+                    AshflixApp(
+                        modifier = Modifier.safeContentPadding(),
+                        windowSizeClass = windowSize.widthSizeClass
+                    )
                 }
             }
         }

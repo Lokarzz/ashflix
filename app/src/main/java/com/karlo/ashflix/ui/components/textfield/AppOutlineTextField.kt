@@ -1,6 +1,7 @@
 package com.karlo.ashflix.ui.components.textfield
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -21,13 +22,17 @@ fun AppOutlinedTextField(
     label: String,
     value: String,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    singleLine: Boolean = false,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onValueChange: (String) -> Unit
 ) {
     OutlinedTextField(
         modifier = modifier,
         value = value,
+        singleLine = singleLine,
         onValueChange = onValueChange,
         visualTransformation = visualTransformation,
+        keyboardOptions = keyboardOptions,
         label = { Text(label) },
     )
 }

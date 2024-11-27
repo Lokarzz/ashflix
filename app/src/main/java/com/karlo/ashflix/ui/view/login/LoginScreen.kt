@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,9 +30,11 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.karlo.ashflix.R
@@ -56,7 +61,8 @@ fun LoginScreen(
         }
     }
     Box(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
     ) {
         ScreenBackground(modifier = Modifier.fillMaxSize())
         OutlinedCard(
@@ -70,7 +76,7 @@ fun LoginScreen(
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
             ) {
-                Logo(modifier = Modifier)
+                Logo(modifier = Modifier.padding(vertical = 64.dp))
 
                 LoginFields(userName = uiState.userName,
                     password = uiState.password,
@@ -101,13 +107,21 @@ private fun LoginFields(
         modifier = Modifier.fillMaxWidth(),
         label = stringResource(R.string.username),
         value = userName,
-        onValueChange = onUpdateUserName
+        onValueChange = onUpdateUserName,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Next
+        ),
+        singleLine = true,
     )
     AppOutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         label = stringResource(R.string.password),
         visualTransformation = PasswordVisualTransformation(),
         value = password,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done
+        ),
         onValueChange = onUpdatePassword
     )
 }

@@ -1,6 +1,5 @@
 package com.karlo.ashflix.ui.view.login
 
-import androidx.lifecycle.SavedStateHandle
 import com.karlo.ashflix.model.repository.fake.auth.FakeAuthRepository
 import com.karlo.ashflix.model.repository.main.auth.AuthRepository
 import com.karlo.ashflix.ui.main.provider.ErrorProvider
