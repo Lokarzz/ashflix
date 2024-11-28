@@ -19,14 +19,10 @@ object ViewModelModule {
     fun providesLoginProvider(
         authRepository: AuthRepository,
         errorHandler: ErrorHandler,
-        userNameValidation: UserNameValidation,
-        passwordValidation: PasswordValidation
     ): LoginProvider {
         return DefaultLoginProvider(
             authRepository,
             errorHandler,
-            userNameValidation,
-            passwordValidation
         )
     }
 }

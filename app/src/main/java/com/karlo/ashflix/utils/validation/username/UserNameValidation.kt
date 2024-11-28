@@ -1,10 +1,10 @@
 package com.karlo.ashflix.utils.validation.username
 
+import com.karlo.ashflix.utils.validation.Constants
 import com.karlo.ashflix.utils.validation.InputValidation
 import com.karlo.ashflix.utils.validation.Result
-import com.karlo.ashflix.utils.validation.Constants
 
-class UserNameValidation : InputValidation<UserNameValidation.Key> {
+class UserNameValidation : InputValidation<String, UserNameValidation.Key> {
 
     override fun validate(input: String): List<Result<Key>> {
         return listOf(

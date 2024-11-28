@@ -1,6 +1,6 @@
 package com.karlo.ashflix.utils.validation
 
-interface InputValidation<T> {
-    fun validate(input: String): List<Result<T>>
+interface InputValidation<in I, T> {
+    fun validate(input: I): List<Result<T>>
 }
 
