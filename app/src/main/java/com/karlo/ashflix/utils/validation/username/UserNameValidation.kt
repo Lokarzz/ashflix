@@ -2,14 +2,15 @@ package com.karlo.ashflix.utils.validation.username
 
 import com.karlo.ashflix.utils.validation.Constants
 import com.karlo.ashflix.utils.validation.InputValidation
+import com.karlo.ashflix.utils.validation.Key
 import com.karlo.ashflix.utils.validation.Result
 
-class UserNameValidation : InputValidation<String, UserNameValidation.Key> {
+class UserNameValidation : InputValidation<String> {
 
-    override fun validate(input: String): List<Result<Key>> {
+    override fun validate(input: String): List<Result> {
         return listOf(
-            Result(valid = input.isNotBlank(), key = Key.EMPTY_USERNAME),
-            Result(valid = input.noSpecialCharacter(), key = Key.HAS_SPECIAL_CHAR),
+            Result(valid = input.isNotBlank(), key = DefaultKey.EMPTY_USERNAME),
+            Result(valid = input.noSpecialCharacter(), key = DefaultKey.HAS_SPECIAL_CHAR),
         )
     }
 
@@ -18,7 +19,7 @@ class UserNameValidation : InputValidation<String, UserNameValidation.Key> {
         return usernamePattern.matches(this)
     }
 
-    enum class Key {
+    enum class DefaultKey : Key {
         EMPTY_USERNAME, HAS_SPECIAL_CHAR
     }
 }

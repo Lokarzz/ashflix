@@ -9,9 +9,9 @@ import com.karlo.ashflix.utils.validation.username.UserNameValidation
 class LoginValidator(
     private val userNameValidation: UserNameValidation = UserNameValidation(),
     private val passwordValidation: PasswordValidation = PasswordValidation()
-) : InputValidation<LoginRequest, Any> {
+) : InputValidation<LoginRequest> {
 
-    override fun validate(input: LoginRequest): List<Result<Any>> {
+    override fun validate(input: LoginRequest): List<Result> {
         val (username, password) = input
 
         val result =

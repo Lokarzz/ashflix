@@ -2,6 +2,7 @@ package com.karlo.ashflix.utils.validation.loginValidator
 
 import com.karlo.ashflix.model.data.ashflix.login.LoginRequest
 import com.karlo.ashflix.utils.validation.InputValidation
+import com.karlo.ashflix.utils.validation.Key
 import com.karlo.ashflix.utils.validation.Result
 import com.karlo.ashflix.utils.validation.username.UserNameValidation
 import org.junit.Before
@@ -10,7 +11,7 @@ import org.junit.Test
 
 class LoginValidatorTest {
 
-    private lateinit var loginValidator: InputValidation<LoginRequest, Any>
+    private lateinit var loginValidator: InputValidation<LoginRequest>
 
     @Before
     fun setUp() {
@@ -40,7 +41,7 @@ class LoginValidatorTest {
             errorResults.contains(
                 Result(
                     valid = false,
-                    key = UserNameValidation.Key.EMPTY_USERNAME
+                    key = UserNameValidation.DefaultKey.EMPTY_USERNAME
                 )
             )
         )

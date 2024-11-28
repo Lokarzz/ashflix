@@ -1,11 +1,11 @@
 package com.karlo.ashflix.di.viewmodel
 
+import com.karlo.ashflix.model.data.ashflix.login.LoginRequest
 import com.karlo.ashflix.model.repository.main.auth.AuthRepository
 import com.karlo.ashflix.ui.view.login.DefaultLoginProvider
 import com.karlo.ashflix.ui.view.login.LoginProvider
 import com.karlo.ashflix.utils.api.error.ErrorHandler
-import com.karlo.ashflix.utils.validation.password.PasswordValidation
-import com.karlo.ashflix.utils.validation.username.UserNameValidation
+import com.karlo.ashflix.utils.validation.InputValidation
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,10 +19,12 @@ object ViewModelModule {
     fun providesLoginProvider(
         authRepository: AuthRepository,
         errorHandler: ErrorHandler,
+        loginValidator: InputValidation<LoginRequest>
     ): LoginProvider {
         return DefaultLoginProvider(
             authRepository,
             errorHandler,
+            loginValidator
         )
     }
 }
