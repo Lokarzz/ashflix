@@ -76,7 +76,7 @@ fun LoginScreen(
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
             ) {
-                Logo(modifier = Modifier.padding(vertical = 64.dp))
+                Logo(modifier = Modifier)
 
                 LoginFields(userName = uiState.userName,
                     password = uiState.password,

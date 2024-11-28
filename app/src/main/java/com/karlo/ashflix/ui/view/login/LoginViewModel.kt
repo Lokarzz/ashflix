@@ -41,6 +41,7 @@ class LoginViewModel @Inject constructor(
 
     fun login() {
         viewModelScope.launch {
+            validateLogin()
             loginProvider.authRepository.login(
                 LoginRequest(
                     _uiState.value.userName, _uiState.value.password
@@ -66,6 +67,10 @@ class LoginViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun validateLogin() {
+
     }
 
     companion object {
