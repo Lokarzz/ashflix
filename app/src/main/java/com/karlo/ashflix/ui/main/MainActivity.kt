@@ -29,6 +29,7 @@ import com.karlo.ashflix.ui.main.theme.AshflixTheme
 import com.karlo.ashflix.ui.view.dashboard.DashboardScreen
 import com.karlo.ashflix.ui.view.login.LoginScreen
 import com.karlo.ashflix.ui.view.login.LoginScreenPreview
+import com.karlo.ashflix.ui.view.video.VideoScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -78,6 +79,9 @@ private fun AshflixApp(
         }
         composable(route = AppScreens.Dashboard.name) {
             DashboardScreen(windowSizeClass = windowSizeClass)
+        }
+        composable(route = AppScreens.Video.name) {
+            VideoScreen(windowSizeClass = windowSizeClass)
         }
     }
 }

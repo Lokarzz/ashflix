@@ -19,7 +19,7 @@ class DefaultLoginProvider(
     override val authRepository: AuthRepository,
     override val errorHandler: ErrorHandler,
     override val loginValidator: InputValidation<LoginRequest>,
-    ) : LoginProvider
+) : LoginProvider
 
 // for testing and compose previews
 class FakeLoginProvider(
