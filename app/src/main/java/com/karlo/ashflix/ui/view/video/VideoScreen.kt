@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -17,6 +18,7 @@ import com.karlo.ashflix.ui.main.BasePreview
 fun VideoScreen(modifier: Modifier = Modifier, windowSizeClass: WindowWidthSizeClass) {
     Box(modifier = modifier.fillMaxSize()) {
         Icon(
+            modifier = Modifier.align(Alignment.TopEnd),
             painter = painterResource(R.drawable.baseline_play_arrow_24),
             contentDescription = stringResource(R.string.play_video)
         )
