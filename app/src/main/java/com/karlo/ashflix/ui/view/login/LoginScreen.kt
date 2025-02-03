@@ -1,5 +1,6 @@
 package com.karlo.ashflix.ui.view.login
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,9 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -32,9 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.karlo.ashflix.R
@@ -48,7 +45,8 @@ fun LoginScreen(
     modifier: Modifier = Modifier,
     onLoginSuccess: () -> Unit,
     loginViewModel: LoginViewModel = hiltViewModel(),
-    windowSizeClass: WindowWidthSizeClass
+    windowSizeClass: WindowWidthSizeClass,
+    onContinueAsGuest: () -> Unit
 ) {
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
     val modifierLoginCard = when (windowSizeClass) {
@@ -89,7 +87,14 @@ fun LoginScreen(
 
                 LoginSignUp(
                     modifier = Modifier.fillMaxWidth(),
-                    onLogin = { loginViewModel.login() }
+                    onLogin = {
+                        loginViewModel.login()
+                    }
+                )
+
+                Text(
+                    modifier = Modifier.clickable { onContinueAsGuest() },
+                    text = stringResource(R.string.continue_as_guest)
                 )
             }
         }
@@ -174,13 +179,15 @@ private fun ScreenBackground(modifier: Modifier = Modifier) {
 fun LoginScreenPreview(
     modifier: Modifier = Modifier,
     windowSizeClass: WindowWidthSizeClass,
-    onLoginSuccess: () -> Unit = {}
+    onLoginSuccess: () -> Unit = {},
+    onContinueAsGuest: () -> Unit = {},
 ) {
     LoginScreen(
         modifier = modifier,
         onLoginSuccess = onLoginSuccess,
         windowSizeClass = windowSizeClass,
-        loginViewModel = LoginViewModel(FakeLoginProvider())
+        loginViewModel = LoginViewModel(FakeLoginProvider()),
+        onContinueAsGuest = onContinueAsGuest
     )
 }
 
@@ -195,7 +202,7 @@ private fun DarkPreview() {
     }
 }
 
-@Preview(device = Devices.TABLET)
+@Preview(device = "spec:width=1280dp,height=800dp,dpi=240")
 @Composable
 private fun TabletPreview() {
     BasePreview {
@@ -206,7 +213,7 @@ private fun TabletPreview() {
     }
 }
 
-@Preview(device = Devices.FOLDABLE)
+@Preview(device = "spec:width=673dp,height=841dp")
 @Composable
 private fun FoldablePreview() {
     BasePreview {

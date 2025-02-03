@@ -18,7 +18,6 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -74,7 +73,10 @@ private fun AshflixApp(
                 onLoginSuccess = {
                     navController.navigate(route = AppScreens.Dashboard.name)
                 },
-                windowSizeClass = windowSizeClass
+                windowSizeClass = windowSizeClass,
+                onContinueAsGuest = {
+                    navController.navigate(route = AppScreens.Dashboard.name)
+                }
             )
         }
         composable(route = AppScreens.Dashboard.name) {
@@ -99,14 +101,20 @@ fun AshflixAppPreview(
     ) {
         composable(route = AppScreens.Login.name) {
             LoginScreenPreview(
+                windowSizeClass = windowSizeClass,
                 onLoginSuccess = {
                     navController.navigate(route = AppScreens.Dashboard.name)
                 },
-                windowSizeClass = windowSizeClass,
+                onContinueAsGuest = {
+                    navController.navigate(route = AppScreens.Dashboard.name)
+                }
             )
         }
         composable(route = AppScreens.Dashboard.name) {
             DashboardScreen(windowSizeClass = windowSizeClass)
+        }
+        composable(route = AppScreens.Video.name) {
+            VideoScreen(windowSizeClass = windowSizeClass)
         }
     }
 }
@@ -146,7 +154,7 @@ private fun MediumPreview(
 }
 
 
-@Preview(device = Devices.TABLET)
+@Preview(device = "spec:width=1280dp,height=800dp,dpi=240")
 @Composable
 private fun ExpandedPreview() {
     BasePreview {

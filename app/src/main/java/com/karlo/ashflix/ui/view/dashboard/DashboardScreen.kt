@@ -17,14 +17,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.karlo.ashflix.R
 import com.karlo.ashflix.model.data.main.movie.Movie
-import com.karlo.ashflix.ui.main.BasePreview
 import com.karlo.ashflix.ui.components.movie.MovieCard
+import com.karlo.ashflix.ui.main.BasePreview
 
 @Composable
 fun DashboardScreen(
@@ -33,7 +32,7 @@ fun DashboardScreen(
     windowSizeClass: WindowWidthSizeClass
 ) {
     val uiState by dashboardViewModel.uiState.collectAsStateWithLifecycle()
-    DashboardView(modifier = modifier, uiState = uiState, windowSizeClass= windowSizeClass)
+    DashboardView(modifier = modifier, uiState = uiState, windowSizeClass = windowSizeClass)
 }
 
 @Composable
@@ -63,6 +62,7 @@ fun Movies(modifier: Modifier = Modifier, movies: List<Movie>) {
             ),
             text = stringResource(R.string.trending_now)
         )
+        println(movies)
         LazyRow(
             modifier = Modifier,
             contentPadding = PaddingValues(dimensionResource(R.dimen.padding_medium)),
@@ -89,7 +89,7 @@ private fun DashboardScreenPreview() {
     }
 }
 
-@Preview(device = Devices.TABLET)
+@Preview(device = "spec:width=1280dp,height=800dp,dpi=240")
 @Composable
 private fun DashboardScreenPreviewTab() {
     val uiState = DashboardUIState.preview()
@@ -98,7 +98,7 @@ private fun DashboardScreenPreviewTab() {
     }
 }
 
-@Preview(device = Devices.FOLDABLE)
+@Preview(device = "spec:width=673dp,height=841dp")
 @Composable
 private fun DashboardScreenPreviewFold() {
     val uiState = DashboardUIState.preview()

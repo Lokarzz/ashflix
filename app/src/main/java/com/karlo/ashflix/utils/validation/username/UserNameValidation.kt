@@ -22,4 +22,5 @@ class UserNameValidation : InputValidation<String> {
     enum class DefaultKey : Key {
         EMPTY_USERNAME, HAS_SPECIAL_CHAR
     }
+
 }
